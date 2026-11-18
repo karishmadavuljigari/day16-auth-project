@@ -4,18 +4,25 @@ from src.auth.sessions import (
     get_session_user,
     revoke_session,
 )
+from uuid import uuid4
+from src.auth.users import register_user
 
 
 def test_session_creation_and_validation():
     """A newly created session should identify its user."""
 
-    token, expiry = create_session(1)
+    email = f"test_{uuid4().hex}@example.com"
+    password = "Secure-Test-Password-2026!"
+
+    user_id = register_user(email, password)
+
+    token, expiry = create_session(user_id)
 
     assert token
     assert expiry
     assert get_session_user(token) == {
-        "id": 1,
-        "email": "test.employee@example.com",
+        "id": user_id,
+        "email": email,
         "role": "employee",
     }
 
