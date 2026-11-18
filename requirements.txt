@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+jinja2
+python-multipart
+itsdangerous
+python-dotenv
+pytest
+httpx
+pwdlib[argon2]
